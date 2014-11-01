@@ -1,11 +1,14 @@
 {
-  "name": "ray-vs-helper",
+  "name": "ray-vs-line-segment",
   "version": "1.0.0",
-  "description": "",
+  "description": "Ray-aware line segment intersection check.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "segment2": "^0.3.2"
+  }
 }
