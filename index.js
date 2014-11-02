@@ -7,7 +7,7 @@ var Segment2 = require('segment2');
 * @param {Segment2} segment
 * @return {Vec2} where ray hits segment or null if it doesn't hit
 */
-function findIntersectionPoint(rayish, segment) {
+function rayVsLineSegment(rayish, segment) {
   var result = segment.intersect(rayish);
 
   // no intersection
@@ -51,4 +51,4 @@ function nearest(target, others) {
   return closest;
 }
 
-module.exports = findIntersectionPoint;
+module.exports = rayVsLineSegment;

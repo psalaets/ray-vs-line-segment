@@ -5,7 +5,7 @@ var Rayish = require('rayish');
 
 var findIntersectionPoint = require('./');
 
-describe('.findIntersectionPoint', function() {
+describe('rayVsLineSegment()', function() {
   var segment, rayish;
 
   beforeEach(function() {
