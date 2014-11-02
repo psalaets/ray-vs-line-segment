@@ -6,6 +6,13 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha test.js"
   },
+  "keywords": [
+    "ray",
+    "line",
+    "segment",
+    "intersect",
+    "2d"
+  ],
   "author": "Paul Salaets <psalaets@gmail.com>",
   "license": "MIT",
   "repository": {
