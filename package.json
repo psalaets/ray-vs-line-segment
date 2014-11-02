@@ -17,7 +17,7 @@
     "url": "https://github.com/psalaets/ray-vs-line-segment/issues"
   },
   "dependencies": {
-    "segment2": "^0.3.2"
+    "segment2": "0.3.2"
   },
   "devDependencies": {
     "mocha": "^2.0.1",
