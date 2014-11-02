@@ -6,8 +6,16 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha test.js"
   },
-  "author": "",
+  "author": "Paul Salaets <psalaets@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/psalaets/ray-vs-line-segment.git"
+  },
+  "homepage": "https://github.com/psalaets/ray-vs-line-segment",
+  "bugs": {
+    "url": "https://github.com/psalaets/ray-vs-line-segment/issues"
+  },
   "dependencies": {
     "segment2": "^0.3.2"
   },
