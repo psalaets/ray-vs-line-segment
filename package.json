@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "mocha": "^2.0.1",
-    "rayish": "^1.1.0",
-    "vec2": "^1.5.0"
+    "rayish": "^1.2.0",
+    "vec2": "^1.6.0"
   }
 }
