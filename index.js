@@ -21,10 +21,10 @@ function rayVsLineSegment(rayish, segment) {
     return rayish.start;
   } else {
     // return segment endpoint that is
-    //   - within ray's segment
+    //   - within ray
     //   - closest to ray start
     var endpointsInRay = segmentEndpointsInRay(rayish, segment);
-    return nearest(rayish.start, endpointsInRay);
+    return rayish.start.nearest(endpointsInRay);
   }
 }
 
@@ -34,21 +34,6 @@ function segmentEndpointsInRay(rayish, segment) {
   return [segment.start, segment.end].filter(function(p) {
     return raySegment.containsPoint(p);
   });
-}
-
-function nearest(target, others) {
-  var smallestDistance = Number.MAX_VALUE;
-  var closest = null;
-
-  others.forEach(function(point) {
-    var distance = target.distance(point);
-    if (distance < smallestDistance) {
-      smallestDistance = distance;
-      closest = point;
-    }
-  });
-
-  return closest;
 }
 
 module.exports = rayVsLineSegment;
