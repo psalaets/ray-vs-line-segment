@@ -1,20 +1,19 @@
 var assert = require('assert');
-var Segment2 = require('segment2');
-var Vec2 = require('vec2');
-var Rayish = require('rayish');
-
 var findIntersectionPoint = require('./');
 
 describe('rayVsLineSegment()', function() {
   var segment, rayish;
 
   beforeEach(function() {
-    segment = new Segment2(new Vec2(5, 5), new Vec2(8, 8));
+    segment = {
+      start: {x: 5, y: 5},
+      end: {x: 8, y: 8}
+    };
   });
 
   describe('ray and segment are not colinear', function() {
     it('returns intersection point when ray cross middle of segment', function() {
-      rayish = new Rayish(new Vec2(6, 0), new Vec2(6, 10));
+      rayish = createRay(6, 0, 6, 10);
 
       var point = findIntersectionPoint(rayish, segment);
 
@@ -23,7 +22,15 @@ describe('rayVsLineSegment()', function() {
     });
 
     it('returns null when ray doesn\'t hit segment', function() {
-      rayish = new Rayish(new Vec2(3, 10), new Vec2(6, 7));
+      rayish = createRay(3, 10, 6, 7);
+
+      var point = findIntersectionPoint(rayish, segment);
+
+      assert.strictEqual(point, null);
+    });
+
+    it('returns null when ray is parallel to segment', function() {
+      rayish = createRay(6, 5, 9, 8);
 
       var point = findIntersectionPoint(rayish, segment);
 
@@ -31,7 +38,7 @@ describe('rayVsLineSegment()', function() {
     });
 
     it('returns ray start when ray starts in middle of segment', function() {
-      rayish = new Rayish(new Vec2(6, 6), new Vec2(6, 10));
+      rayish = createRay(6, 6, 6, 10);
 
       var point = findIntersectionPoint(rayish, segment);
 
@@ -40,7 +47,7 @@ describe('rayVsLineSegment()', function() {
     });
 
     it('returns segment start when ray starts at segment start', function() {
-      rayish = new Rayish(new Vec2(5, 5), new Vec2(6, 10));
+      rayish = createRay(5, 5, 6, 10);
 
       var point = findIntersectionPoint(rayish, segment);
 
@@ -49,7 +56,7 @@ describe('rayVsLineSegment()', function() {
     });
 
     it('returns segment end when ray starts at segment end', function() {
-      rayish = new Rayish(new Vec2(8, 8), new Vec2(6, 10));
+      rayish = createRay(8, 8, 6, 10);
 
       var point = findIntersectionPoint(rayish, segment);
 
@@ -60,7 +67,7 @@ describe('rayVsLineSegment()', function() {
 
   describe('ray and segment are colinear', function() {
     it('returns null when ray doesn\'t reach segment', function() {
-      rayish = new Rayish(new Vec2(2, 2), new Vec2(3, 3));
+      rayish = createRay(2, 2, 3, 3);
 
       var point = findIntersectionPoint(rayish, segment);
 
@@ -68,7 +75,7 @@ describe('rayVsLineSegment()', function() {
     });
 
     it('returns ray start when ray starts in middle of segment', function() {
-      rayish = new Rayish(new Vec2(7, 7), new Vec2(3, 3));
+      rayish = createRay(7, 7, 3, 3);
 
       var point = findIntersectionPoint(rayish, segment);
 
@@ -77,7 +84,7 @@ describe('rayVsLineSegment()', function() {
     });
 
     it('returns segment start when ray overlaps from segment start side', function() {
-      rayish = new Rayish(new Vec2(3, 3), new Vec2(7, 7));
+      rayish = createRay(3, 3, 7, 7);
 
       var point = findIntersectionPoint(rayish, segment);
 
@@ -86,7 +93,7 @@ describe('rayVsLineSegment()', function() {
     });
 
     it('returns segment end when ray overlaps from segment end side', function() {
-      rayish = new Rayish(new Vec2(10, 10), new Vec2(7, 7));
+      rayish = createRay(10, 10, 7, 7);
 
       var point = findIntersectionPoint(rayish, segment);
 
@@ -95,3 +102,16 @@ describe('rayVsLineSegment()', function() {
     });
   });
 });
+
+function createRay(x1, y1, x2, y2) {
+  return {
+    start: {
+      x: x1,
+      y: y1
+    },
+    end: {
+      x: x2,
+      y: y2
+    }
+  };
+}

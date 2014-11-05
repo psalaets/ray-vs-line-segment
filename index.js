@@ -1,38 +1,51 @@
-var Segment2 = require('segment2');
+var lineIntersect = require('line-intersect');
+var Vec2 = require('vec2');
 
 /**
 * Finds where a ray hits a line segment, if at all.
 *
-* @param {Rayish} rayish
-* @param {Segment2} segment
-* @return {Vec2} where ray hits segment or null if it doesn't hit
+* @param {object} rayish
+* @param {object} segment
+* @return {object} point (x/y) where ray hits segment or null if it doesn't hit
 */
 function rayVsLineSegment(rayish, segment) {
-  var result = segment.intersect(rayish);
+  var result = lineIntersect.checkIntersection(
+    rayish.start.x, rayish.start.y, rayish.end.x, rayish.end.y,
+    segment.start.x, segment.start.y, segment.end.x, segment.end.y
+  );
 
-  // no intersection
-  if (!result) return null;
+  // definitely no intersection
+  if (result.type == 'none' || result.type == 'parallel') return null;
 
   // single intersection point
-  if (result !== true) return result;
+  if (result.type == 'intersecting') return result.point;
 
-  // colinear, check if ray/segment overlap
-  if (segment.containsPoint(rayish.start)) {
+  // colinear, so now check if ray/segment overlap
+  if (segmentContainsPoint(segment, rayish.start)) {
     return rayish.start;
   } else {
     // return segment endpoint that is
     //   - within ray
     //   - closest to ray start
+    var rayStart = new Vec2(rayish.start);
     var endpointsInRay = segmentEndpointsInRay(rayish, segment);
-    return rayish.start.nearest(endpointsInRay);
+    return rayStart.nearest(endpointsInRay);
   }
 }
 
-function segmentEndpointsInRay(rayish, segment) {
-  var raySegment = new Segment2(rayish.start, rayish.end);
+function segmentContainsPoint(segment, point) {
+  return lineIntersect.colinearPointWithinSegment(
+    point.x, point.y,
+    segment.start.x, segment.start.y,
+    segment.end.x, segment.end.y
+  );
+}
 
-  return [segment.start, segment.end].filter(function(p) {
-    return raySegment.containsPoint(p);
+function segmentEndpointsInRay(rayish, segment) {
+  return [segment.start, segment.end].map(function(p) {
+    return new Vec2(p);
+  }).filter(function(vec) {
+    return segmentContainsPoint(rayish, vec);
   });
 }
 
