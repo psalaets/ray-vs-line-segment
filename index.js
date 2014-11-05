@@ -4,8 +4,18 @@ var Vec2 = require('vec2');
 /**
 * Finds where a ray hits a line segment, if at all.
 *
-* @param {object} rayish
-* @param {object} segment
+* @param {object} ray - Object that looks like
+* {
+*   start: {x: number, y: number},
+*   end: {x: number, y: number}
+* }
+*
+* @param {object} segment - Object that looks like
+* {
+*   start: {x: number, y: number},
+*   end: {x: number, y: number}
+* }
+*
 * @return {object} point (x/y) where ray hits segment or null if it doesn't hit
 */
 function rayVsLineSegment(rayish, segment) {
