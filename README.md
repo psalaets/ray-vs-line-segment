@@ -18,7 +18,7 @@ Ray-aware line segment intersection check.
     
     var point = rayVsLineSegment(ray, segment);
     
-    point // (5, 0)
+    point // {x: 5, y: 0}
 
 # Install
 
