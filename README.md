@@ -6,12 +6,15 @@ Ray-aware line segment intersection check.
 
     var rayVsLineSegment = require('ray-vs-line-segment');
     
-    var Segment2 = require('segment2');
-    var Vec2 = require('vec2');
-    var Rayish = require('rayish');
+    var ray = {
+      start: {x: 2, y: 0},
+      end: {x: 7, y: 0},
+    };
     
-    var segment = new Segment2(new Vec2(5, 0), new Vec2(10, 0));
-    var ray = new Rayish(new Vec2(2, 0), new Vec2(7, 0));
+    var segment = {
+      start: {x: 5, y: 0},
+      end: {x: 10, y: 0},
+    };
     
     var point = rayVsLineSegment(ray, segment);
     
